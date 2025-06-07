@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>D4 Build Guide</title>
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="D4 Build Guide">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRGlhYmxvIDQgQnVpbGQgR3VpZGUiLCJzaG9ydF9uYW1lIjoiRDQgQnVpbGRzIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxYTFhMmUiLCJ0aGVtZV9jb2xvciI6IiMxYTFhMmUiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhNamdnTVRJNElpQm1hV3hzUFNJalptWTJZak0xSWlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zVXViM0puTHpJd01EQXZjM1puSWo0OGNtVmpkQ0IzYVdSMGFEMGlNVEk0SWlCb1pXbG5hSFE5SWpFeU9DSWdabWxzYkQwaUkzWmpORFl6TWpJaUx6NDhkR1Y0ZENCNFBTSTJOQ0lnZVQwaU5qUWlJR1pwYkd3OUlpTm1abVptWmlJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdjM1I1YkdVOUltWnZiblF0ZDJWcFoyaDBPaUZ2YkdRN1ptOXVkQzF6YVhwbE9qSXdjSGc3SWo0Z1JEUThnSFJsZUhROE9uUmxlSFErUEM5emRtYytJRHdoTFMwdElpZW5hbWNpTFMwdFBqNGdQSE4yWnpCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zVXViM0puTHpJd01EQXZjM1puSWlCM2FXUjBhRDBpTWpCd2VDSWdhR1ZwWjJoMFBTSXlNSEI0SWlCMmFXVjNRbTk0UFNJd0lEQWdNakFnTWpBaVBqd2haV1JsY3lCamVEMGlNekJpSWlCamVUMGlNekJpSWlCeVBTSTFJaUJtYVd4c1BTSWpNREExWm1ZM1ppSXZQanh3WVhSb0lHUTlJazB4TUMxNGRqaHNOamd4TUMweU1qTmhNVFUzSURFMU55QXdJREF4SURRM2JDNHhOelF5TlRnd04yMHRNUzQxTVRZM0xTNDNNelVpSUdacGJHeHNQU0lqWm1ZMlltTTFJaTgrUEM5emRtYytJRHdoTFMwdElpZW5aVzVrSWkwdFBqNDhMM04yWno0PSIsInNpemVzIjoiMTI4eDEyOCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f171f 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            user-select: none;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            padding: 10px;
+            padding-top: max(10px, env(safe-area-inset-top));
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .header h1 {
+            color: #ff6b35;
+            font-size: clamp(1.8em, 5vw, 2.2em);
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: clamp(0.9em, 3vw, 1em);
+            opacity: 0.9;
+        }
+
+        .class-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+
+        .tab-button {
+            padding: 18px 15px;
+            background: rgba(255, 107, 53, 0.15);
+            border: 2px solid #ff6b35;
+            border-radius: 25px;
+            color: #ff6b35;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
+            font-size: clamp(1em, 4vw, 1.1em);
+            text-align: center;
+            touch-action: manipulation;
+        }
+
+        .tab-button:active {
+            transform: scale(0.95);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b35, #ff8c53);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .class-content {
+            display: none;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .class-content.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .build-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .build-title {
+            color: #ff6b35;
+            font-size: clamp(1.3em, 4vw, 1.6em);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .level-input-section {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(255, 140, 83, 0.1));
+            border: 2px solid #ff6b35;
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+        }
+
+        .level-input-section h4 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .input-row label {
+            font-weight: 700;
+            color: #e0e0e0;
+            font-size: 1.1em;
+            min-width: fit-content;
+        }
+
+        .level-input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .level-input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+            background: rgba(0,0,0,0.6);
+        }
+
+        .show-build-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c53);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.2em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            touch-action: manipulation;
+        }
+
+        .show-build-btn:active {
+            transform: scale(0.98);
+        }
+
+        .show-build-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .skill-progression {
+            display: none;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-progression.show {
+            display: block;
+        }
+
+        .skill-tier {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 4px solid #ff6b35;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-tier h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #87ceeb;
+            font-size: clamp(0.95em, 3.5vw, 1em);
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .skill-points {
+            background: #ff6b35;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: clamp(0.85em, 3vw, 0.9em);
+            font-weight: 700;
+            min-width: fit-content;
+        }
+
+        .current-level {
+            border-top: 3px solid #00ff7f !important;
+            margin-top: 20px !important;
+            padding-top: 20px !important;
+            background: rgba(0, 255, 127, 0.1);
+            border-radius: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .current-level .skill-points {
+            background: #00ff7f !important;
+            color: black !important;
+            animation: pulse 2s infinite;
+        }
+
+        .next-level .skill-points {
+            background: #87ceeb !important;
+            color: black !important;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .gear-section, .synergy-box, .tips-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .gear-section {
+            border: 1px solid #ffd700;
+        }
+
+        .synergy-box {
+            border: 1px solid #00ff7f;
+        }
+
+        .tips-section {
+            border: 1px solid #87ceeb;
+        }
+
+        .gear-section h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .synergy-box h4 {
+            color: #00ff7f;
+            margin-bottom: 15px;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .tips-section h4 {
+            color: #87ceeb;
+            margin-bottom: 15px;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .gear-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .gear-item {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .gear-type {
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .gear-stats {
+            font-size: 0.95em;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        .synergy-box p, .tips-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: clamp(0.9em, 3.5vw, 1em);
+        }
+
+        /* Install prompt styles */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c53);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            z-index: 1000;
+        }
+
+        .install-prompt.show {
+            display: flex;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .install-text {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .install-btn {
+            background: white;
+            color: #ff6b35;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 5px;
+                padding-top: max(5px, env(safe-area-inset-top));
+            }
+            
+            .header {
+                padding: 15px 10px;
+                margin-bottom: 15px;
+            }
+            
+            .build-section {
+                padding: 15px;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .input-row label {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h1>🔥 D4 Build Guide 🔥</h1>
+            <p>Optimized builds for Barbarian & Necromancer</p>
+        </div>
+
+        <div class="class-tabs">
+            <button class="tab-button active" onclick="showClass('barbarian')">⚔️ Barbarian</button>
+            <button class="tab-button" onclick="showClass('necromancer')">💀 Necromancer</button>
+        </div>
+
+        <!-- BARBARIAN BUILD -->
+        <div id="barbarian" class="class-content active">
+            <div class="build-section">
+                <h3 class="build-title">⚔️ Upheaval Barbarian</h3>
+                
+                <div class="synergy-box">
+                    <h4>🎯 Build Focus</h4>
+                    <p>This build focuses on <strong>Upheaval</strong> as your main damage dealer, supported by fury generation and survivability. Perfect for new players - simple but powerful!</p>
+                </div>
+
+                <div class="level-input-section">
+                    <h4>🎯 Enter Your Current Level</h4>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <label for="barbLevel">Current Level:</label>
+                            <input type="number" id="barbLevel" class="level-input" min="1" max="50" placeholder="15">
+                        </div>
+                        <button class="show-build-btn" onclick="showBarbSkills()">
+                            Show My Build 🎯
+                        </button>
+                    </div>
+                </div>
+
+                <div id="barbSkillDisplay" class="skill-progression">
+                    <div class="skill-tier">
+                        <h4 id="barbSkillTitle">📋 Your Skill Allocation</h4>
+                        <ul id="barbSkillList" class="skill-list">
+                            <!-- Skills will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="gear-section">
+                    <h4>🛡️ Priority Gear Stats</h4>
+                    <div class="gear-grid">
+                        <div class="gear-item">
+                            <div class="gear-type">Weapon (Two-Handed)</div>
+                            <div class="gear-stats">
+                                • High weapon damage<br>
+                                • +Damage to Upheaval<br>
+                                • Core Skill damage<br>
+                                • Strength
+                            </div>
+                        </div>
+                        <div class="gear-item">
+                            <div class="gear-type">Armor</div>
+                            <div class="gear-stats">
+                                • Maximum Life<br>
+                                • Damage Reduction<br>
+                                • Resistances (All)<br>
+                                • +Ranks to Upheaval
+                            </div>
+                        </div>
+                        <div class="gear-item">
+                            <div class="gear-type">Jewelry</div>
+                            <div class="gear-stats">
+                                • Critical Hit Chance<br>
+                                • Critical Hit Damage<br>
+                                • Fury Generation<br>
+                                • Maximum Life
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="synergy-box">
+                    <h4>⚡ Skill Synergies</h4>
+                    <p><strong>Bash → Upheaval:</strong> Bash generates Fury, Upheaval spends it for massive damage</p>
+                    <p><strong>War Cry + Rallying Cry:</strong> Buff damage and fury generation while providing team support</p>
+                    <p><strong>Wrath of the Berserker:</strong> Ultimate that amplifies all your damage and fury generation</p>
+                </div>
+
+                <div class="tips-section">
+                    <h4>💡 Tips for New Players</h4>
+                    <p>• Always use Bash to build Fury before casting Upheaval</p>
+                    <p>• Keep your shouts active for constant buffs</p>
+                    <p>• Use Upheaval on groups of enemies for maximum efficiency</p>
+                    <p>• Focus on Two-Handed weapons for highest damage</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NECROMANCER BUILD -->
+        <div id="necromancer" class="class-content">
+            <div class="build-section">
+                <h3 class="build-title">💀 Blood Surge Necromancer</h3>
+                
+                <div class="synergy-box">
+                    <h4>🎯 Build Focus</h4>
+                    <p>This build revolves around <strong>Blood Surge</strong> as your main damage skill, supported by corpse skills and blood magic. Excellent sustain and clear damage output!</p>
+                </div>
+
+                <div class="level-input-section">
+                    <h4>🎯 Enter Your Current Level</h4>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <label for="necroLevel">Current Level:</label>
+                            <input type="number" id="necroLevel" class="level-input" min="1" max="50" placeholder="15">
+                        </div>
+                        <button class="show-build-btn" onclick="showNecroSkills()">
+                            Show My Build 🎯
+                        </button>
+                    </div>
+                </div>
+
+                <div id="necroSkillDisplay" class="skill-progression">
+                    <div class="skill-tier">
+                        <h4 id="necroSkillTitle">📋 Your Skill Allocation</h4>
+                        <ul id="necroSkillList" class="skill-list">
+                            <!-- Skills will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="gear-section">
+                    <h4>🛡️ Priority Gear Stats</h4>
+                    <div class="gear-grid">
+                        <div class="gear-item">
+                            <div class="gear-type">Weapon</div>
+                            <div class="gear-stats">
+                                • High weapon damage<br>
+                                • +Damage to Blood Surge<br>
+                                • Core Skill damage<br>
+                                • Intelligence
+                            </div>
+                        </div>
+                        <div class="gear-item">
+                            <div class="gear-type">Armor</div>
+                            <div class="gear-stats">
+                                • Maximum Life<br>
+                                • +Ranks to Blood Surge<br>
+                                • +Ranks to Corpse Skills<br>
+                                • Damage Reduction
+                            </div>
+                        </div>
+                        <div class="gear-item">
+                            <div class="gear-type">Jewelry</div>
+                            <div class="gear-stats">
+                                • Critical Hit Chance<br>
+                                • Critical Hit Damage<br>
+                                • Maximum Essence<br>
+                                • Essence Generation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="synergy-box">
+                    <h4>⚡ Skill Synergies</h4>
+                    <p><strong>Decompose → Blood Surge:</strong> Decompose generates Essence and creates corpses for Blood Surge</p>
+                    <p><strong>Corpse Explosion + Blood Surge:</strong> Use corpses for both area damage and Blood Surge enhancement</p>
+                    <p><strong>Bone Armor + Blood Mist:</strong> Provides defense and escape when overwhelmed</p>
+                </div>
+
+                <div class="tips-section">
+                    <h4>💡 Tips for New Players</h4>
+                    <p>• Always maintain Bone Armor for protection</p>
+                    <p>• Use Decompose to create corpses, then Blood Surge to consume them</p>
+                    <p>• Corpse Explosion is great for clearing large groups</p>
+                    <p>• Blood Mist is your panic button - use it to escape danger</p>
+                    <p>• Focus on weapons with high Intelligence and +skill ranks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="install-text">Add D4 Build Guide to your home screen!</div>
+        <button class="install-btn" onclick="installApp()">Install</button>
+        <button class="close-btn" onclick="closeInstallPrompt()">×</button>
+    </div>
+
+    <script>
+        // Barbarian skill progression data
+        const barbarianSkills = [
+            { level: 1, skill: "Bash", points: "1/5" },
+            { level: 2, skill: "Bash", points: "2/5" },
+            { level: 3, skill: "Bash", points: "3/5" },
+            { level: 4, skill: "Upheaval", points: "1/5" },
+            { level: 5, skill: "Upheaval", points: "2/5" },
+            { level: 6, skill: "Bash", points: "4/5" },
+            { level: 7, skill: "Bash", points: "5/5" },
+            { level: 8, skill: "Enhanced Bash", points: "1/1" },
+            { level: 9, skill: "Upheaval", points: "3/5" },
+            { level: 10, skill: "Upheaval", points: "4/5" },
+            { level: 11, skill: "Upheaval", points: "5/5" },
+            { level: 12, skill: "Enhanced Upheaval", points: "1/1" },
+            { level: 13, skill: "Furious Upheaval", points: "1/1" },
+            { level: 14, skill: "Rallying Cry", points: "1/1" },
+            { level: 15, skill: "Enhanced Rallying Cry", points: "1/1" },
+            { level: 16, skill: "War Cry", points: "1/1" },
+            { level: 17, skill: "Enhanced War Cry", points: "1/1" },
+            { level: 18, skill: "Challenging Shout", points: "1/1" },
+            { level: 19, skill: "Enhanced Challenging Shout", points: "1/1" },
+            { level: 20, skill: "Ground Stomp", points: "1/1" },
+            { level: 21, skill: "Enhanced Ground Stomp", points: "1/1" },
+            { level: 22, skill: "Thick Skin", points: "1/3" },
+            { level: 23, skill: "Thick Skin", points: "2/3" },
+            { level: 24, skill: "Thick Skin", points: "3/3" },
+            { level: 25, skill: "Counteroffensive", points: "1/3" },
+            { level: 26, skill: "Counteroffensive", points: "2/3" },
+            { level: 27, skill: "Counteroffensive", points: "3/3" },
+            { level: 28, skill: "Martial Vigor", points: "1/3" },
+            { level: 29, skill: "Martial Vigor", points: "2/3" },
+            { level: 30, skill: "Martial Vigor", points: "3/3" },
+            { level: 31, skill: "Wrath of the Berserker", points: "1/1" },
+            { level: 32, skill: "Enhanced Wrath of the Berserker", points: "1/1" }
+        ];
+
+        // Necromancer skill progression data
+        const necromancerSkills = [
+            { level: 1, skill: "Decompose", points: "1/5" },
+            { level: 2, skill: "Decompose", points: "2/5" },
+            { level: 3, skill: "Decompose", points: "3/5" },
+            { level: 4, skill: "Blood Surge", points: "1/5" },
+            { level: 5, skill: "Blood Surge", points: "2/5" },
+            { level: 6, skill: "Decompose", points: "4/5" },
+            { level: 7, skill: "Decompose", points: "5/5" },
+            { level: 8, skill: "Enhanced Decompose", points: "1/1" },
+            { level: 9, skill: "Blood Surge", points: "3/5" },
+            { level: 10, skill: "Blood Surge", points: "4/5" },
+            { level: 11, skill: "Blood Surge", points: "5/5" },
+            { level: 12, skill: "Enhanced Blood Surge", points: "1/1" },
+            { level: 13, skill: "Supernatural Blood Surge", points: "1/1" },
+            { level: 14, skill: "Blood Mist", points: "1/1" },
+            { level: 15, skill: "Enhanced Blood Mist", points: "1/1" },
+            { level: 16, skill: "Corpse Explosion", points: "1/5" },
+            { level: 17, skill: "Corpse Explosion", points: "2/5" },
+            { level: 18, skill: "Corpse Explosion", points: "3/5" },
+            { level: 19, skill: "Corpse Explosion", points: "4/5" },
+            { level: 20, skill: "Corpse Explosion", points: "5/5" },
+            { level: 21, skill: "Enhanced Corpse Explosion", points: "1/1" },
+            { level: 22, skill: "Bone Armor", points: "1/1" },
+            { level: 23, skill: "Enhanced Bone Armor", points: "1/1" },
+            { level: 24, skill: "Grim Harvest", points: "1/3" },
+            { level: 25, skill: "Grim Harvest", points: "2/3" },
+            { level: 26, skill: "Grim Harvest", points: "3/3" },
+            { level: 27, skill: "Fueled by Death", points: "1/3" },
+            { level: 28, skill: "Fueled by Death", points: "2/3" },
+            { level: 29, skill: "Fueled by Death", points: "3/3" },
+            { level: 30, skill: "Death's Approach", points: "1/3" },
+            { level: 31, skill: "Army of the Dead", points: "1/1" },
+            { level: 32, skill: "Enhanced Army of the Dead", points: "1/1" }
+        ];
+
+        // PWA functionality
+        let deferredPrompt;
+        let installPromptShown = false;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after user interacts with the app
+            setTimeout(() => {
+                if (!installPromptShown) {
+                    showInstallPrompt();
+                }
+            }, 5000);
+        });
+
+        function showInstallPrompt() {
+            const prompt = document.getElementById('installPrompt');
+            prompt.classList.add('show');
+            installPromptShown = true;
+        }
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    closeInstallPrompt();
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        function closeInstallPrompt() {
+            const prompt = document.getElementById('installPrompt');
+            prompt.classList.remove('show');
+        }
+
+        function showBarbSkills() {
+            const level = parseInt(document.getElementById('barbLevel').value);
+            if (!level || level < 1) {
+                alert('Please enter a valid level (1 or higher)');
+                return;
+            }
+
+            const skillsToShow = barbarianSkills.filter(skill => skill.level <= level);
+            const skillList = document.getElementById('barbSkillList');
+            const skillDisplay = document.getElementById('barbSkillDisplay');
+            const skillTitle = document.getElementById('barbSkillTitle');
+
+            skillTitle.textContent = `📋 Level ${level} Barbarian Build`;
+            skillList.innerHTML = '';
+
+            // Group skills by name and show final allocation
+            const skillMap = new Map();
+            skillsToShow.forEach(skill => {
+                skillMap.set(skill.skill, skill.points);
+            });
+
+            skillMap.forEach((points, skillName) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="skill-name">${skillName}</span> <span class="skill-points">${points}</span>`;
+                skillList.appendChild(li);
+            });
+
+            // Add current level skill recommendation
+            const currentLevelSkill = barbarianSkills.find(skill => skill.level === level);
+            if (currentLevelSkill) {
+                const currentLi = document.createElement('li');
+                currentLi.className = 'current-level';
+                currentLi.innerHTML = `<span class="skill-name">🎯 Level ${level} - Put point in:</span> <span class="skill-points">${currentLevelSkill.skill}</span>`;
+                skillList.appendChild(currentLi);
+            }
+
+            // Add next level skill recommendation
+            const nextLevelSkill = barbarianSkills.find(skill => skill.level === level + 1);
+            if (nextLevelSkill) {
+                const nextLi = document.createElement('li');
+                nextLi.className = 'next-level';
+                nextLi.innerHTML = `<span class="skill-name">⏭️ Level ${level + 1} - Next point:</span> <span class="skill-points">${nextLevelSkill.skill}</span>`;
+                skillList.appendChild(nextLi);
+            }
+
+            skillDisplay.classList.add('show');
+            
+            // Smooth scroll to results
+            setTimeout(() => {
+                skillDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function showNecroSkills() {
+            const level = parseInt(document.getElementById('necroLevel').value);
+            if (!level || level < 1) {
+                alert('Please enter a valid level (1 or higher)');
+                return;
+            }
+
+            const skillsToShow = necromancerSkills.filter(skill => skill.level <= level);
+            const skillList = document.getElementById('necroSkillList');
+            const skillDisplay = document.getElementById('necroSkillDisplay');
+            const skillTitle = document.getElementById('necroSkillTitle');
+
+            skillTitle.textContent = `📋 Level ${level} Necromancer Build`;
+            skillList.innerHTML = '';
+
+            // Group skills by name and show final allocation
+            const skillMap = new Map();
+            skillsToShow.forEach(skill => {
+                skillMap.set(skill.skill, skill.points);
+            });
+
+            skillMap.forEach((points, skillName) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="skill-name">${skillName}</span> <span class="skill-points">${points}</span>`;
+                skillList.appendChild(li);
+            });
+
+            // Add current level skill recommendation
+            const currentLevelSkill = necromancerSkills.find(skill => skill.level === level);
+            if (currentLevelSkill) {
+                const currentLi = document.createElement('li');
+                currentLi.className = 'current-level';
+                currentLi.innerHTML = `<span class="skill-name">🎯 Level ${level} - Put point in:</span> <span class="skill-points">${currentLevelSkill.skill}</span>`;
+                skillList.appendChild(currentLi);
+            }
+
+            // Add next level skill recommendation
+            const nextLevelSkill = necromancerSkills.find(skill => skill.level === level + 1);
+            if (nextLevelSkill) {
+                const nextLi = document.createElement('li');
+                nextLi.className = 'next-level';
+                nextLi.innerHTML = `<span class="skill-name">⏭️ Level ${level + 1} - Next point:</span> <span class="skill-points">${nextLevelSkill.skill}</span>`;
+                skillList.appendChild(nextLi);
+            }
+
+            skillDisplay.classList.add('show');
+            
+            // Smooth scroll to results
+            setTimeout(() => {
+                skillDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function showClass(className) {
+            // Hide all class content
+            const allContent = document.querySelectorAll('.class-content');
+            allContent.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active from all buttons
+            const allButtons = document.querySelectorAll('.tab-button');
+            allButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected class content
+            document.getElementById(className).classList.add('active');
+            
+            // Add active to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('barbLevel').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    showBarbSkills();
+                }
+            });
+            document.getElementById('necroLevel').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    showNecroSkills();
+                }
+            });
+
+            // Prevent zoom on input focus for better mobile experience
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.fontSize = '16px';
+                });
+            });
+        });
+
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBldmVudC53YWl0VW50aWwoCiAgICBjYWNoZXMub3BlbignZDQtYnVpbGQtZ3VpZGUtdjEnKS50aGVuKGZ1bmN0aW9uKGNhY2hlKSB7CiAgICAgIHJldHVybiBjYWNoZS5hZGRBbGwoWycvJ10pOwogICAgfSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcignZmV0Y2gnLCBmdW5jdGlvbihldmVudCkgewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpLnRoZW4oZnVuY3Rpb24ocmVzcG9uc2UpIHsKICAgICAgcmV0dXJuIHJlc3BvbnNlIHx8IGZldGNoKGV2ZW50LnJlcXVlc3QpOwogICAgfSkKICApOwp9KTs=')
+                .then(() => console.log('Service Worker registered'))
+                .catch(() => console.log('Service Worker registration failed'));
+        }
+    </script>
+</body>
+</html>
