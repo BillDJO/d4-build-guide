@@ -45,6 +45,38 @@
             border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
+        .trivia-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            font-size: clamp(0.75em, 2.5vw, 0.85em);
+            line-height: 1.3;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .trivia-label {
+            color: #ffd700;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .trivia-text {
+            color: #87ceeb;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .header h1 {
             color: #ff6b35;
             font-size: clamp(1.8em, 5vw, 2.2em);
@@ -458,6 +490,65 @@
             line-height: 1.5;
         }
 
+        .skill-header-with-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .skill-title-center {
+            flex: 1;
+            text-align: center;
+            margin: 0;
+            color: #00ff7f;
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            font-weight: 700;
+        }
+
+        .nav-arrow {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #00ff7f;
+            background: rgba(0, 255, 127, 0.15);
+            border-radius: 50%;
+            color: #00ff7f;
+            font-size: 1.5em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .nav-arrow:hover:not(:disabled) {
+            background: rgba(0, 255, 127, 0.3);
+            border-color: #00cc66;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 127, 0.3);
+        }
+
+        .nav-arrow:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #666;
+            color: #666;
+            background: rgba(102, 102, 102, 0.15);
+        }
+
+        .nav-arrow span {
+            line-height: 1;
+            margin-top: -2px;
+        }
+
         .synergy-box p, .tips-section p, .endgame-notes p {
             line-height: 1.6;
             margin-bottom: 10px;
@@ -493,98 +584,110 @@
 <body>
     <div class="app-container">
         <div class="header">
+            <div class="trivia-container">
+                <span class="trivia-label">💡 Trivia:</span>
+                <span id="triviaText" class="trivia-text">Loading Diablo IV trivia...</span>
+            </div>
             <h1>🔥 D4 Build Guide 🔥</h1>
             <p>5 Optimized Builds Per Class - Beginner to Expert</p>
         </div>
 
         <div class="class-tabs">
-            <button class="tab-button active" onclick="showClass('barbarian')">⚔️ Barbarian</button>
+            <button class="tab-button active" onclick="showClass('druid')">🌿 Druid</button>
             <button class="tab-button" onclick="showClass('necromancer')">💀 Necromancer</button>
         </div>
 
-        <!-- BARBARIAN BUILDS -->
-        <div id="barbarian" class="class-content active">
+        <!-- DRUID BUILDS -->
+        <div id="druid" class="class-content active">
             <div class="build-section">
                 <div class="build-selection">
-                    <h3>⚔️ Choose Your Barbarian Build</h3>
+                    <h3>🌿 Choose Your Druid Build</h3>
                     <div class="builds-grid">
                         
-                        <div class="build-option selected" data-build="upheaval">
+                        <div class="build-option selected" data-build="landslide">
                             <div class="build-header">
-                                <span class="build-name">🔨 Upheaval</span>
+                                <span class="build-name">🗻 Landslide Earth</span>
                                 <span class="difficulty-badge difficulty-beginner">Beginner</span>
                             </div>
-                            <div class="build-description">Simple fury management with devastating two-handed attacks. Perfect for new players.</div>
-                            <div class="build-specialty">Specialty: High single-target damage • Great for bosses • Team support with shouts</div>
+                            <div class="build-description">Devastating earth magic with simple spirit management. Crush enemies with massive landslides.</div>
+                            <div class="build-specialty">Specialty: High burst damage • Simple rotation • Great range • Perfect for co-op</div>
                         </div>
 
-                        <div class="build-option" data-build="whirlwind">
+                        <div class="build-option" data-build="tornado">
                             <div class="build-header">
-                                <span class="build-name">🌪️ Whirlwind</span>
+                                <span class="build-name">🌪️ Tornado Storm</span>
                                 <span class="difficulty-badge difficulty-beginner">Beginner</span>
                             </div>
-                            <div class="build-description">Spin-to-win! Mobile area damage that clears groups effortlessly.</div>
-                            <div class="build-specialty">Specialty: Area clearing • High mobility • Easy to play • Perfect for dungeons</div>
+                            <div class="build-description">Chain lightning and tornadoes clear entire screens. Mobile storm caster.</div>
+                            <div class="build-specialty">Specialty: Area clearing • High mobility • Elemental mastery • Dungeon specialist</div>
                         </div>
 
-                        <div class="build-option" data-build="hammer">
+                        <div class="build-option" data-build="werewolf">
                             <div class="build-header">
-                                <span class="build-name">⚡ Hammer of the Ancients</span>
+                                <span class="build-name">🐺 Werewolf Fury</span>
                                 <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
                             </div>
-                            <div class="build-description">Massive single hits with careful positioning. Rewarding for skilled players.</div>
-                            <div class="build-specialty">Specialty: Massive burst damage • Timing-based • Incredible boss DPS</div>
+                            <div class="build-description">Savage melee combat with powerful shred attacks. Transform and dominate.</div>
+                            <div class="build-specialty">Specialty: Melee powerhouse • Shape-shifting • High sustain • Boss killer</div>
                         </div>
 
-                        <div class="build-option" data-build="rend">
+                        <div class="build-option" data-build="poison">
                             <div class="build-header">
-                                <span class="build-name">🩸 Rend Bleed</span>
+                                <span class="build-name">☠️ Poison Creeper</span>
                                 <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
                             </div>
-                            <div class="build-description">Damage over time with excellent survivability. Tag enemies and watch them bleed out.</div>
-                            <div class="build-specialty">Specialty: Damage over time • High survivability • Great for tough content</div>
+                            <div class="build-description">Damage over time with nature's companions. Poison creepers and deadly toxins.</div>
+                            <div class="build-specialty">Specialty: DoT mastery • Companion synergy • Area denial • Nature magic</div>
                         </div>
 
-                        <div class="build-option" data-build="frenzy">
+                        <div class="build-option" data-build="lightning">
                             <div class="build-header">
-                                <span class="build-name">⚡ Frenzy Speed</span>
+                                <span class="build-name">⚡ Lightning Storm</span>
                                 <span class="difficulty-badge difficulty-expert">Expert</span>
                             </div>
-                            <div class="build-description">Lightning-fast attacks with complex resource management. For veterans only.</div>
-                            <div class="build-specialty">Specialty: Extreme attack speed • Complex rotations • Highest skill ceiling</div>
+                            <div class="build-description">Channeled lightning devastation with shapeshifting synergy. Master of storm and claw.</div>
+                            <div class="build-specialty">Specialty: Channeled damage • Shapeshifting synergy • High mobility • Endgame beast</div>
                         </div>
 
                     </div>
                 </div>
 
-                <div id="barbLevelSection" class="level-input-section show">
+                <div id="druidLevelSection" class="level-input-section show">
                     <h4>🎯 Enter Your Current Level</h4>
                     <div class="input-group">
                         <div class="input-row">
-                            <label for="barbLevel">Current Level:</label>
-                            <input type="number" id="barbLevel" class="level-input" min="1" max="50" placeholder="15">
+                            <label for="druidLevel">Current Level:</label>
+                            <input type="number" id="druidLevel" class="level-input" min="1" max="50" placeholder="15">
                         </div>
-                        <button class="show-build-btn" onclick="showBarbSkills()">
+                        <button class="show-build-btn" onclick="showDruidSkills()">
                             Show My Build 🎯
                         </button>
                     </div>
                 </div>
 
-                <div id="barbSkillDisplay" class="skill-progression">
+                <div id="druidSkillDisplay" class="skill-progression">
                     <div class="skill-tier">
-                        <h4 id="barbSkillTitle">📋 Your Skill Allocation</h4>
-                        <ul id="barbSkillList" class="skill-list">
+                        <div class="skill-header-with-nav">
+                            <button class="nav-arrow nav-arrow-left" id="druidPrevLevel" onclick="changeLevel('druid', -1)">
+                                <span>←</span>
+                            </button>
+                            <h4 id="druidSkillTitle" class="skill-title-center">📋 Your Skill Allocation</h4>
+                            <button class="nav-arrow nav-arrow-right" id="druidNextLevel" onclick="changeLevel('druid', 1)">
+                                <span>→</span>
+                            </button>
+                        </div>
+                        <ul id="druidSkillList" class="skill-list">
                             <!-- Skills will be populated by JavaScript -->
                         </ul>
                     </div>
                     
-                    <div id="barbEndgameNotes" class="endgame-notes">
+                    <div id="druidEndgameNotes" class="endgame-notes">
                         <h4>🏆 Levels 36-50 Priority</h4>
-                        <p id="barbEndgameText">Endgame progression notes will appear here.</p>
+                        <p id="druidEndgameText">Endgame progression notes will appear here.</p>
                     </div>
                 </div>
 
-                <div id="barbBuildInfo" class="build-info">
+                <div id="druidBuildInfo" class="build-info">
                     <!-- Build-specific info will be populated here -->
                 </div>
             </div>
@@ -602,8 +705,8 @@
                                 <span class="build-name">🩸 Blood Surge</span>
                                 <span class="difficulty-badge difficulty-beginner">Beginner</span>
                             </div>
-                            <div class="build-description">Blood magic with excellent sustain. Create corpses, consume them for power.</div>
-                            <div class="build-specialty">Specialty: Self-healing • Good damage • Corpse synergy • Beginner friendly</div>
+                            <div class="build-description">Blood magic with excellent sustain. Create corpses, consume them for massive damage.</div>
+                            <div class="build-specialty">Specialty: Self-healing • Overpower damage • Corpse synergy • Tank and spank</div>
                         </div>
 
                         <div class="build-option" data-build="bonespear">
@@ -611,8 +714,8 @@
                                 <span class="build-name">🦴 Bone Spear</span>
                                 <span class="difficulty-badge difficulty-beginner">Beginner</span>
                             </div>
-                            <div class="build-description">Ranged caster that stays safe while dealing consistent damage from distance.</div>
-                            <div class="build-specialty">Specialty: Safe ranged combat • Piercing projectiles • Great for co-op</div>
+                            <div class="build-description">Ranged caster that stays safe while dealing consistent piercing damage from distance.</div>
+                            <div class="build-specialty">Specialty: Safe ranged combat • Piercing projectiles • Essence efficient • Kiting master</div>
                         </div>
 
                         <div class="build-option" data-build="army">
@@ -620,8 +723,8 @@
                                 <span class="build-name">👥 Army of the Dead</span>
                                 <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
                             </div>
-                            <div class="build-description">Minion master with skeletons that fight alongside you. Perfect team player.</div>
-                            <div class="build-specialty">Specialty: Minion army • Excellent co-op support • Crowd control</div>
+                            <div class="build-description">Minion master with skeletons and mages that fight alongside you. Ultimate team player.</div>
+                            <div class="build-specialty">Specialty: Minion army • Excellent co-op support • Crowd control • Summoner fantasy</div>
                         </div>
 
                         <div class="build-option" data-build="corpseexplosion">
@@ -629,8 +732,8 @@
                                 <span class="build-name">💥 Corpse Explosion</span>
                                 <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
                             </div>
-                            <div class="build-description">Chain explosions that devastate groups. Turn enemy deaths into your victory.</div>
-                            <div class="build-specialty">Specialty: Area damage specialist • Chain reactions • Dungeon clearing</div>
+                            <div class="build-description">Chain explosions that devastate groups. Turn enemy deaths into massive damage.</div>
+                            <div class="build-specialty">Specialty: Area damage specialist • Chain reactions • Corpse management • Group destroyer</div>
                         </div>
 
                         <div class="build-option" data-build="boneprison">
@@ -638,8 +741,8 @@
                                 <span class="build-name">🏴‍☠️ Bone Prison Control</span>
                                 <span class="difficulty-badge difficulty-expert">Expert</span>
                             </div>
-                            <div class="build-description">Master of crowd control with complex timing. Lock down enemies while allies strike.</div>
-                            <div class="build-specialty">Specialty: Ultimate crowd control • Complex timing • Team coordination master</div>
+                            <div class="build-description">Master of crowd control with complex timing. Lock down enemies while allies obliterate.</div>
+                            <div class="build-specialty">Specialty: Ultimate crowd control • Complex timing • Team coordination • Controller</div>
                         </div>
 
                     </div>
@@ -660,7 +763,15 @@
 
                 <div id="necroSkillDisplay" class="skill-progression">
                     <div class="skill-tier">
-                        <h4 id="necroSkillTitle">📋 Your Skill Allocation</h4>
+                        <div class="skill-header-with-nav">
+                            <button class="nav-arrow nav-arrow-left" id="necroPrevLevel" onclick="changeLevel('necro', -1)">
+                                <span>←</span>
+                            </button>
+                            <h4 id="necroSkillTitle" class="skill-title-center">📋 Your Skill Allocation</h4>
+                            <button class="nav-arrow nav-arrow-right" id="necroNextLevel" onclick="changeLevel('necro', 1)">
+                                <span>→</span>
+                            </button>
+                        </div>
                         <ul id="necroSkillList" class="skill-list">
                             <!-- Skills will be populated by JavaScript -->
                         </ul>
@@ -680,108 +791,343 @@
     </div>
 
     <script>
-        // Build skill data - simplified for demonstration
+        // Diablo IV Trivia Facts
+        const triviaFacts = [
+            "Diablo IV's map is 5x larger than Diablo III, making it the biggest Diablo world ever created!",
+            "The game features over 150 dungeons, each with unique layouts that change every time you enter.",
+            "Lilith, the main antagonist, is actually the daughter of Mephisto and mother of humanity in Diablo lore.",
+            "Players can find and ride horses in Diablo IV - a first for the franchise!",
+            "The game's skill tree system allows for over 1 trillion different character build combinations.",
+            "Diablo IV took over 6 years to develop and had multiple complete rewrites during production.",
+            "The Necromancer's Book of the Dead was inspired by actual medieval grimoires and occult texts.",
+            "Sanctuary (the game world) exists between Heaven and Hell, making it a neutral battleground.",
+            "The game features dynamic weather that actually affects gameplay, not just visuals.",
+            "Diablo IV's engine can render up to 100 enemies on screen simultaneously without frame drops.",
+            "The Barbarian's Arsenal system lets you see all 4 equipped weapons on their back and hips.",
+            "Tree of Whispers is based on Yggdrasil from Norse mythology, the World Tree.",
+            "Each class has unique dismount attacks when jumping off your horse in combat.",
+            "The game's day/night cycle affects which events and monsters appear in the world.",
+            "Diablo IV features the largest voice acting cast in Blizzard's history with over 300 actors.",
+            "The Sorcerer class was almost called 'Sorceress' but was changed to be gender-neutral.",
+            "Hardcore characters have a special graveyard where you can mourn your fallen heroes.",
+            "The game's audio uses spatial 3D sound - demons approaching from behind sound different than front.",
+            "Diablo IV's randomized dungeons use an algorithm that ensures no two runs feel identical.",
+            "The Druid's shapeshifting was completely rebuilt from scratch using new animation technology.",
+            "World Tier difficulty affects not just monster strength, but also completely changes loot tables.",
+            "The game features over 1000 different legendary item powers, more than any previous Diablo game.",
+            "Strongholds permanently change the world map when conquered, affecting all players on the server.",
+            "The Rogue's combo point system was inspired by classic MMO rogue mechanics but redesigned for ARPG combat.",
+            "Diablo IV's PvP zones use a unique 'Hatred' currency that can only be earned by killing other players.",
+            "The game's seasons introduce completely new mechanics, not just balance changes.",
+            "World bosses require 12 players minimum but can support up to 20 for epic battles.",
+            "The Crusader class was planned for launch but delayed to ensure proper balance with other classes.",
+            "Diablo IV's graphics engine supports real-time ray tracing on high-end systems.",
+            "The game features cross-progression - your character follows you across PC, PlayStation, and Xbox.",
+            "Treasure Goblins have 15 different variants, each dropping completely different types of loot.",
+            "The Wanderer (your character) is canonically the same person across all 5 classes - they just chose different paths.",
+            "Diablo IV's skill tooltips show exact damage numbers instead of vague descriptions for the first time.",
+            "The game's weather system includes 12 different weather types that can stack and combine.",
+            "Malignant Hearts were originally going to be permanent additions but were made seasonal for balance."
+        ];
+
+        let currentTriviaIndex = 0;
+        let triviaInterval;
+
+        // Initialize trivia rotation
+        function initTrivia() {
+            const triviaElement = document.getElementById('triviaText');
+            if (triviaElement) {
+                // Show first trivia immediately
+                triviaElement.textContent = triviaFacts[0];
+                
+                // Start rotation
+                triviaInterval = setInterval(() => {
+                    currentTriviaIndex = (currentTriviaIndex + 1) % triviaFacts.length;
+                    triviaElement.style.animation = 'none';
+                    setTimeout(() => {
+                        triviaElement.textContent = triviaFacts[currentTriviaIndex];
+                        triviaElement.style.animation = 'fadeIn 0.5s ease-in-out';
+                    }, 50);
+                }, 8000); // Change every 8 seconds
+            }
+        }
+
+        // Navigation system for level changes
+        function changeLevel(classPrefix, direction) {
+            const levelInput = document.getElementById(`${classPrefix === 'druid' ? 'druid' : 'necro'}Level`);
+            const currentLevel = parseInt(levelInput.value) || 1;
+            const newLevel = Math.max(1, Math.min(50, currentLevel + direction));
+            
+            if (newLevel !== currentLevel) {
+                levelInput.value = newLevel;
+                if (classPrefix === 'druid') {
+                    showDruidSkills();
+                } else {
+                    showNecroSkills();
+                }
+            }
+        }
+
+        // Update navigation arrows based on current level
+        function updateNavigationArrows(classPrefix, level) {
+            const prevButton = document.getElementById(`${classPrefix}PrevLevel`);
+            const nextButton = document.getElementById(`${classPrefix}NextLevel`);
+            
+            if (prevButton) {
+                prevButton.disabled = level <= 1;
+            }
+            if (nextButton) {
+                nextButton.disabled = level >= 50;
+            }
+        }
+        // Complete build skill data with corrected skill trees
         const buildData = {
-            barbarian: {
-                upheaval: {
+            druid: {
+                landslide: {
                     skills: [
-                        { level: 1, skill: "Bash", points: "1/5" },
-                        { level: 2, skill: "Bash", points: "2/5" },
-                        { level: 3, skill: "Bash", points: "3/5" },
-                        { level: 4, skill: "Upheaval", points: "1/5" },
-                        { level: 5, skill: "Upheaval", points: "2/5" },
-                        { level: 6, skill: "Bash", points: "4/5" },
-                        { level: 7, skill: "Bash", points: "5/5" },
-                        { level: 8, skill: "Enhanced Bash", points: "1/1" },
-                        { level: 9, skill: "Upheaval", points: "3/5" },
-                        { level: 10, skill: "Upheaval", points: "4/5" },
-                        { level: 11, skill: "Upheaval", points: "5/5" },
-                        { level: 12, skill: "Enhanced Upheaval", points: "1/1" },
-                        { level: 13, skill: "Furious Upheaval", points: "1/1" },
-                        { level: 14, skill: "Rallying Cry", points: "1/1" },
-                        { level: 15, skill: "Enhanced Rallying Cry", points: "1/1" },
-                        { level: 16, skill: "War Cry", points: "1/1" },
-                        { level: 17, skill: "Enhanced War Cry", points: "1/1" },
-                        { level: 18, skill: "Challenging Shout", points: "1/1" },
-                        { level: 19, skill: "Enhanced Challenging Shout", points: "1/1" },
-                        { level: 20, skill: "Ground Stomp", points: "1/1" },
-                        { level: 21, skill: "Enhanced Ground Stomp", points: "1/1" },
-                        { level: 22, skill: "Thick Skin", points: "1/3" },
-                        { level: 23, skill: "Thick Skin", points: "2/3" },
-                        { level: 24, skill: "Thick Skin", points: "3/3" },
-                        { level: 25, skill: "Counteroffensive", points: "1/3" },
-                        { level: 26, skill: "Counteroffensive", points: "2/3" },
-                        { level: 27, skill: "Counteroffensive", points: "3/3" },
-                        { level: 28, skill: "Martial Vigor", points: "1/3" },
-                        { level: 29, skill: "Martial Vigor", points: "2/3" },
-                        { level: 30, skill: "Martial Vigor", points: "3/3" },
-                        { level: 31, skill: "Wrath of the Berserker", points: "1/1" },
-                        { level: 32, skill: "Enhanced Wrath of the Berserker", points: "1/1" },
-                        { level: 33, skill: "Supreme Wrath of the Berserker", points: "1/1" },
-                        { level: 34, skill: "Heavy Handed", points: "1/3" },
-                        { level: 35, skill: "Heavy Handed", points: "2/3" }
+                        { level: 1, skill: "Earth Spike", points: "1/5" },
+                        { level: 2, skill: "Earth Spike", points: "2/5" },
+                        { level: 3, skill: "Earth Spike", points: "3/5" },
+                        { level: 4, skill: "Landslide", points: "1/5" },
+                        { level: 5, skill: "Landslide", points: "2/5" },
+                        { level: 6, skill: "Earth Spike", points: "4/5" },
+                        { level: 7, skill: "Earth Spike", points: "5/5" },
+                        { level: 8, skill: "Enhanced Earth Spike", points: "1/1" },
+                        { level: 9, skill: "Landslide", points: "3/5" },
+                        { level: 10, skill: "Landslide", points: "4/5" },
+                        { level: 11, skill: "Landslide", points: "5/5" },
+                        { level: 12, skill: "Enhanced Landslide", points: "1/1" },
+                        { level: 13, skill: "Primal Landslide", points: "1/1" },
+                        { level: 14, skill: "Earthen Bulwark", points: "1/1" },
+                        { level: 15, skill: "Enhanced Earthen Bulwark", points: "1/1" },
+                        { level: 16, skill: "Cyclone Armor", points: "1/1" },
+                        { level: 17, skill: "Enhanced Cyclone Armor", points: "1/1" },
+                        { level: 18, skill: "Elemental Exposure", points: "1/3" },
+                        { level: 19, skill: "Elemental Exposure", points: "2/3" },
+                        { level: 20, skill: "Elemental Exposure", points: "3/3" },
+                        { level: 21, skill: "Heart of the Wild", points: "1/3" },
+                        { level: 22, skill: "Heart of the Wild", points: "2/3" },
+                        { level: 23, skill: "Heart of the Wild", points: "3/3" },
+                        { level: 24, skill: "Wild Impulses", points: "1/3" },
+                        { level: 25, skill: "Wild Impulses", points: "2/3" },
+                        { level: 26, skill: "Wild Impulses", points: "3/3" },
+                        { level: 27, skill: "Abundance", points: "1/3" },
+                        { level: 28, skill: "Abundance", points: "2/3" },
+                        { level: 29, skill: "Abundance", points: "3/3" },
+                        { level: 30, skill: "Crushing Earth", points: "1/3" },
+                        { level: 31, skill: "Cataclysm", points: "1/1" },
+                        { level: 32, skill: "Enhanced Cataclysm", points: "1/1" },
+                        { level: 33, skill: "Supreme Cataclysm", points: "1/1" },
+                        { level: 34, skill: "Crushing Earth", points: "2/3" },
+                        { level: 35, skill: "Crushing Earth", points: "3/3" }
                     ],
-                    endgame: "Continue with Heavy Handed (3/3) → Wallop (3/3) → Brute Force (3/3). Focus on damage passives and utility skills for your preferred content type.",
+                    endgame: "Complete Stone Guard (3/3) → Safeguard (3/3) → Natural Fortitude (3/3). Focus on defensive passives and earth damage amplifiers for high-level content.",
                     info: {
-                        synergies: "Bash generates Fury → Upheaval consumes Fury for massive damage. Shouts provide team buffs and fury generation. Wrath amplifies everything.",
+                        synergies: "Earth Spike builds Spirit and can stun → Landslide consumes Spirit for massive AoE damage with Terramote stacks. Earthen Bulwark provides defense while Cyclone Armor adds elemental protection. Cataclysm devastates groups and provides damage multipliers.",
                         gear: {
-                            weapon: "Two-handed weapons • +Damage to Upheaval • Core Skill damage • Strength",
-                            armor: "Maximum Life • Damage Reduction • +Ranks to Upheaval • All Resistances",
-                            jewelry: "Critical Hit Chance • Critical Hit Damage • Fury Generation • Maximum Life"
+                            weapon: "Two-handed staff • +Damage to Landslide • Earth Skill damage • Willpower • Critical Hit Damage • Spirit Cost Reduction",
+                            armor: "Maximum Life • Damage Reduction • +Ranks to Earth Skills • All Resistances • Fortify Generation • +Ranks to Landslide",
+                            jewelry: "Critical Hit Chance • Critical Hit Damage • Spirit Generation • Maximum Spirit • Earth Damage • Overpower Damage"
                         },
-                        tips: "Always use Bash to build Fury before casting Upheaval • Keep shouts active • Use Upheaval on groups • Focus on Two-Handed weapons"
+                        tips: "Use Earth Spike to build Spirit and create Terramotes → Cast Landslide for guaranteed crits → Position carefully for maximum AoE impact • Earthen Bulwark before engaging tough enemies • Great for clearing groups while Necromancer handles single targets • Primal Landslide makes enemies drop guaranteed crits"
                     }
                 },
-                whirlwind: {
+                tornado: {
                     skills: [
-                        { level: 1, skill: "Bash", points: "1/5" },
-                        { level: 2, skill: "Bash", points: "2/5" },
-                        { level: 3, skill: "Bash", points: "3/5" },
-                        { level: 4, skill: "Whirlwind", points: "1/5" },
-                        { level: 5, skill: "Whirlwind", points: "2/5" },
-                        { level: 6, skill: "Bash", points: "4/5" },
-                        { level: 7, skill: "Bash", points: "5/5" },
-                        { level: 8, skill: "Enhanced Bash", points: "1/1" },
-                        { level: 9, skill: "Whirlwind", points: "3/5" },
-                        { level: 10, skill: "Whirlwind", points: "4/5" },
-                        { level: 11, skill: "Whirlwind", points: "5/5" },
-                        { level: 12, skill: "Enhanced Whirlwind", points: "1/1" },
-                        { level: 13, skill: "Furious Whirlwind", points: "1/1" },
-                        { level: 14, skill: "Rallying Cry", points: "1/1" },
-                        { level: 15, skill: "Enhanced Rallying Cry", points: "1/1" },
-                        { level: 16, skill: "War Cry", points: "1/1" },
-                        { level: 17, skill: "Enhanced War Cry", points: "1/1" },
-                        { level: 18, skill: "Iron Skin", points: "1/1" },
-                        { level: 19, skill: "Enhanced Iron Skin", points: "1/1" },
-                        { level: 20, skill: "Tactical Iron Skin", points: "1/1" },
-                        { level: 21, skill: "Dust Devils", points: "1/5" },
-                        { level: 22, skill: "Dust Devils", points: "2/5" },
-                        { level: 23, skill: "Dust Devils", points: "3/5" },
-                        { level: 24, skill: "Pressure Point", points: "1/3" },
-                        { level: 25, skill: "Pressure Point", points: "2/3" },
-                        { level: 26, skill: "Pressure Point", points: "3/3" },
-                        { level: 27, skill: "Endless Fury", points: "1/3" },
-                        { level: 28, skill: "Endless Fury", points: "2/3" },
-                        { level: 29, skill: "Endless Fury", points: "3/3" },
-                        { level: 30, skill: "Martial Vigor", points: "1/3" },
-                        { level: 31, skill: "Wrath of the Berserker", points: "1/1" },
-                        { level: 32, skill: "Enhanced Wrath of the Berserker", points: "1/1" },
-                        { level: 33, skill: "Supreme Wrath of the Berserker", points: "1/1" },
-                        { level: 34, skill: "Martial Vigor", points: "2/3" },
-                        { level: 35, skill: "Martial Vigor", points: "3/3" }
+                        { level: 1, skill: "Storm Strike", points: "1/5" },
+                        { level: 2, skill: "Storm Strike", points: "2/5" },
+                        { level: 3, skill: "Storm Strike", points: "3/5" },
+                        { level: 4, skill: "Tornado", points: "1/5" },
+                        { level: 5, skill: "Tornado", points: "2/5" },
+                        { level: 6, skill: "Storm Strike", points: "4/5" },
+                        { level: 7, skill: "Storm Strike", points: "5/5" },
+                        { level: 8, skill: "Enhanced Storm Strike", points: "1/1" },
+                        { level: 9, skill: "Tornado", points: "3/5" },
+                        { level: 10, skill: "Tornado", points: "4/5" },
+                        { level: 11, skill: "Tornado", points: "5/5" },
+                        { level: 12, skill: "Enhanced Tornado", points: "1/1" },
+                        { level: 13, skill: "Primal Tornado", points: "1/1" },
+                        { level: 14, skill: "Lightning Storm", points: "1/5" },
+                        { level: 15, skill: "Lightning Storm", points: "2/5" },
+                        { level: 16, skill: "Cyclone Armor", points: "1/1" },
+                        { level: 17, skill: "Enhanced Cyclone Armor", points: "1/1" },
+                        { level: 18, skill: "Lightning Storm", points: "3/5" },
+                        { level: 19, skill: "Lightning Storm", points: "4/5" },
+                        { level: 20, skill: "Lightning Storm", points: "5/5" },
+                        { level: 21, skill: "Enhanced Lightning Storm", points: "1/1" },
+                        { level: 22, skill: "Elemental Exposure", points: "1/3" },
+                        { level: 23, skill: "Elemental Exposure", points: "2/3" },
+                        { level: 24, skill: "Elemental Exposure", points: "3/3" },
+                        { level: 25, skill: "Endless Tempest", points: "1/3" },
+                        { level: 26, skill: "Endless Tempest", points: "2/3" },
+                        { level: 27, skill: "Endless Tempest", points: "3/3" },
+                        { level: 28, skill: "Bad Omen", points: "1/3" },
+                        { level: 29, skill: "Bad Omen", points: "2/3" },
+                        { level: 30, skill: "Bad Omen", points: "3/3" },
+                        { level: 31, skill: "Hurricane", points: "1/1" },
+                        { level: 32, skill: "Enhanced Hurricane", points: "1/1" },
+                        { level: 33, skill: "Supreme Hurricane", points: "1/1" },
+                        { level: 34, skill: "Electric Shock", points: "1/3" },
+                        { level: 35, skill: "Electric Shock", points: "2/3" }
                     ],
-                    endgame: "Complete Dust Devils (5/5) → Thick Skin (3/3) → Counteroffensive (3/3). Focus on movement speed and fury efficiency for non-stop spinning.",
+                    endgame: "Complete Electric Shock (3/3) → Charged Atmosphere (3/3) → Perfect Storm (3/3). Focus on storm synergies and movement speed for maximum mobility and damage.",
                     info: {
-                        synergies: "Bash builds Fury → Whirlwind spins continuously. Dust Devils create tornadoes for extra damage. Endless Fury keeps you spinning longer.",
+                        synergies: "Storm Strike generates Spirit and chains lightning → Tornado creates wandering damage that seeks enemies → Lightning Storm creates additional area coverage → Hurricane provides massive storm coverage. High mobility with constant elemental damage.",
                         gear: {
-                            weapon: "Dual-wield or Two-handed • +Damage to Whirlwind • Core Skill damage • Attack Speed",
-                            armor: "Maximum Life • Movement Speed • +Ranks to Whirlwind • Fury Cost Reduction",
-                            jewelry: "Critical Hit Chance • Attack Speed • Fury Generation • Movement Speed"
+                            weapon: "Staff or Wand • +Damage to Storm Skills • Lightning Damage • Critical Hit Chance • Movement Speed • Spirit Cost Reduction",
+                            armor: "Maximum Life • Storm Skill ranks • Lightning Resistance • Movement Speed • Spirit Cost Reduction • +Ranks to Tornado",
+                            jewelry: "Critical Hit Chance • Lightning Damage • Attack Speed • Movement Speed • Spirit Generation • Storm Damage"
                         },
-                        tips: "Keep moving while spinning • Use Dust Devils in groups • Manage fury carefully • Great for speedrunning dungeons"
+                        tips: "Stay mobile and kite enemies • Use Storm Strike to build Spirit and apply Vulnerable • Cast Tornado to control battlefield • Lightning Storm for additional coverage • Great for clearing dungeons while Necromancer handles single targets • Hurricane devastates large groups"
+                    }
+                },
+                werewolf: {
+                    skills: [
+                        { level: 1, skill: "Claw", points: "1/5" },
+                        { level: 2, skill: "Claw", points: "2/5" },
+                        { level: 3, skill: "Claw", points: "3/5" },
+                        { level: 4, skill: "Shred", points: "1/5" },
+                        { level: 5, skill: "Shred", points: "2/5" },
+                        { level: 6, skill: "Claw", points: "4/5" },
+                        { level: 7, skill: "Claw", points: "5/5" },
+                        { level: 8, skill: "Enhanced Claw", points: "1/1" },
+                        { level: 9, skill: "Shred", points: "3/5" },
+                        { level: 10, skill: "Shred", points: "4/5" },
+                        { level: 11, skill: "Shred", points: "5/5" },
+                        { level: 12, skill: "Enhanced Shred", points: "1/1" },
+                        { level: 13, skill: "Primal Shred", points: "1/1" },
+                        { level: 14, skill: "Blood Howl", points: "1/1" },
+                        { level: 15, skill: "Enhanced Blood Howl", points: "1/1" },
+                        { level: 16, skill: "Wolves", points: "1/1" },
+                        { level: 17, skill: "Enhanced Wolves", points: "1/1" },
+                        { level: 18, skill: "Predatory Instinct", points: "1/3" },
+                        { level: 19, skill: "Predatory Instinct", points: "2/3" },
+                        { level: 20, skill: "Predatory Instinct", points: "3/3" },
+                        { level: 21, skill: "Iron Fur", points: "1/3" },
+                        { level: 22, skill: "Iron Fur", points: "2/3" },
+                        { level: 23, skill: "Iron Fur", points: "3/3" },
+                        { level: 24, skill: "Lycanthrope's Power", points: "1/3" },
+                        { level: 25, skill: "Lycanthrope's Power", points: "2/3" },
+                        { level: 26, skill: "Lycanthrope's Power", points: "3/3" },
+                        { level: 27, skill: "Envenom", points: "1/3" },
+                        { level: 28, skill: "Envenom", points: "2/3" },
+                        { level: 29, skill: "Envenom", points: "3/3" },
+                        { level: 30, skill: "Toxic Claws", points: "1/3" },
+                        { level: 31, skill: "Grizzly Rage", points: "1/1" },
+                        { level: 32, skill: "Enhanced Grizzly Rage", points: "1/1" },
+                        { level: 33, skill: "Supreme Grizzly Rage", points: "1/1" },
+                        { level: 34, skill: "Toxic Claws", points: "2/3" },
+                        { level: 35, skill: "Toxic Claws", points: "3/3" }
+                    ],
+                    endgame: "Complete Neurotoxin (3/3) → Shapeshifting Mastery (3/3) → Ursine Strength (3/3). Focus on shape-shifting synergies and poison enhancement for maximum DPS.",
+                    info: {
+                        synergies: "Claw builds Fury in werewolf form → Shred spends Fury for bleeding damage with dash mechanics → Blood Howl heals and enhances damage → Wolves provide additional DPS and utility. Transform into ultimate predator with poison synergy.",
+                        gear: {
+                            weapon: "Claws or One-handed • +Damage to Shred • Shapeshifting Skills • Critical Hit Damage • Attack Speed • Poison Damage",
+                            armor: "Maximum Life • +Ranks to Shapeshifting • Physical Damage • Damage Reduction • Fury Generation • +Ranks to Werewolf Skills",
+                            jewelry: "Critical Hit Chance • Critical Hit Damage • Attack Speed • Maximum Fury • Poison Damage • Shapeshifting Damage"
+                        },
+                        tips: "Maintain werewolf form in combat • Use Claw to build Fury, Shred to spend it with dash combos • Blood Howl for emergency healing and damage buff • Wolves help with crowd control • Great melee complement to Necromancer's ranged style • Poison synergy scales incredibly well"
+                    }
+                },
+                poison: {
+                    skills: [
+                        { level: 1, skill: "Earth Spike", points: "1/5" },
+                        { level: 2, skill: "Earth Spike", points: "2/5" },
+                        { level: 3, skill: "Earth Spike", points: "3/5" },
+                        { level: 4, skill: "Poison Creeper", points: "1/1" },
+                        { level: 5, skill: "Enhanced Poison Creeper", points: "1/1" },
+                        { level: 6, skill: "Earth Spike", points: "4/5" },
+                        { level: 7, skill: "Earth Spike", points: "5/5" },
+                        { level: 8, skill: "Enhanced Earth Spike", points: "1/1" },
+                        { level: 9, skill: "Landslide", points: "1/5" },
+                        { level: 10, skill: "Landslide", points: "2/5" },
+                        { level: 11, skill: "Landslide", points: "3/5" },
+                        { level: 12, skill: "Enhanced Landslide", points: "1/1" },
+                        { level: 13, skill: "Ravens", points: "1/1" },
+                        { level: 14, skill: "Enhanced Ravens", points: "1/1" },
+                        { level: 15, skill: "Earthen Bulwark", points: "1/1" },
+                        { level: 16, skill: "Enhanced Earthen Bulwark", points: "1/1" },
+                        { level: 17, skill: "Landslide", points: "4/5" },
+                        { level: 18, skill: "Landslide", points: "5/5" },
+                        { level: 19, skill: "Elemental Exposure", points: "1/3" },
+                        { level: 20, skill: "Elemental Exposure", points: "2/3" },
+                        { level: 21, skill: "Elemental Exposure", points: "3/3" },
+                        { level: 22, skill: "Nature's Reach", points: "1/3" },
+                        { level: 23, skill: "Nature's Reach", points: "2/3" },
+                        { level: 24, skill: "Nature's Reach", points: "3/3" },
+                        { level: 25, skill: "Envenom", points: "1/3" },
+                        { level: 26, skill: "Envenom", points: "2/3" },
+                        { level: 27, skill: "Envenom", points: "3/3" },
+                        { level: 28, skill: "Toxic Claws", points: "1/3" },
+                        { level: 29, skill: "Toxic Claws", points: "2/3" },
+                        { level: 30, skill: "Toxic Claws", points: "3/3" },
+                        { level: 31, skill: "Petrify", points: "1/1" },
+                        { level: 32, skill: "Enhanced Petrify", points: "1/1" },
+                        { level: 33, skill: "Supreme Petrify", points: "1/1" },
+                        { level: 34, skill: "Neurotoxin", points: "1/3" },
+                        { level: 35, skill: "Neurotoxin", points: "2/3" }
+                    ],
+                    endgame: "Complete Neurotoxin (3/3) → One With Nature (3/3) → Shepherd's (3/3). Focus on companion synergies and poison amplification for devastating DoT damage.",
+                    info: {
+                        synergies: "Earth Spike builds Spirit → Poison Creeper immobilizes and poisons → Landslide triggers Subterranean aspect for more creepers → Ravens apply Vulnerable and poison. Perfect DoT synergy with nature companions.",
+                        gear: {
+                            weapon: "Staff • +Damage to Poison Creeper • Earth Skills • Companion Skills • Poison Damage • Spirit Cost Reduction",
+                            armor: "Maximum Life • +Ranks to Companion Skills • Poison Damage • Damage Reduction • +Ranks to Poison Creeper",
+                            jewelry: "Critical Hit Chance • Poison Damage • Companion Damage • Spirit Generation • Vulnerable Damage • Critical Hit Damage"
+                        },
+                        tips: "Cast Poison Creeper first to immobilize groups → Follow with Landslide for Subterranean triggers → Ravens apply Vulnerable before big damage • Petrify for crowd control and Spirit recovery • Great area denial while Necromancer sets up combos"
+                    }
+                },
+                lightning: {
+                    skills: [
+                        { level: 1, skill: "Storm Strike", points: "1/5" },
+                        { level: 2, skill: "Storm Strike", points: "2/5" },
+                        { level: 3, skill: "Storm Strike", points: "3/5" },
+                        { level: 4, skill: "Lightning Storm", points: "1/5" },
+                        { level: 5, skill: "Lightning Storm", points: "2/5" },
+                        { level: 6, skill: "Storm Strike", points: "4/5" },
+                        { level: 7, skill: "Storm Strike", points: "5/5" },
+                        { level: 8, skill: "Enhanced Storm Strike", points: "1/1" },
+                        { level: 9, skill: "Lightning Storm", points: "3/5" },
+                        { level: 10, skill: "Lightning Storm", points: "4/5" },
+                        { level: 11, skill: "Lightning Storm", points: "5/5" },
+                        { level: 12, skill: "Enhanced Lightning Storm", points: "1/1" },
+                        { level: 13, skill: "Primal Lightning Storm", points: "1/1" },
+                        { level: 14, skill: "Claw", points: "1/5" },
+                        { level: 15, skill: "Claw", points: "2/5" },
+                        { level: 16, skill: "Enhanced Claw", points: "1/1" },
+                        { level: 17, skill: "Blood Howl", points: "1/1" },
+                        { level: 18, skill: "Enhanced Blood Howl", points: "1/1" },
+                        { level: 19, skill: "Cyclone Armor", points: "1/1" },
+                        { level: 20, skill: "Enhanced Cyclone Armor", points: "1/1" },
+                        { level: 21, skill: "Elemental Exposure", points: "1/3" },
+                        { level: 22, skill: "Elemental Exposure", points: "2/3" },
+                        { level: 23, skill: "Elemental Exposure", points: "3/3" },
+                        { level: 24, skill: "Endless Tempest", points: "1/3" },
+                        { level: 25, skill: "Endless Tempest", points: "2/3" },
+                        { level: 26, skill: "Endless Tempest", points: "3/3" },
+                        { level: 27, skill: "Quickshift", points: "1/3" },
+                        { level: 28, skill: "Quickshift", points: "2/3" },
+                        { level: 29, skill: "Quickshift", points: "3/3" },
+                        { level: 30, skill: "Feral Aptitude", points: "1/3" },
+                        { level: 31, skill: "Cataclysm", points: "1/1" },
+                        { level: 32, skill: "Enhanced Cataclysm", points: "1/1" },
+                        { level: 33, skill: "Supreme Cataclysm", points: "1/1" },
+                        { level: 34, skill: "Feral Aptitude", points: "2/3" },
+                        { level: 35, skill: "Feral Aptitude", points: "3/3" }
+                    ],
+                    endgame: "Complete Bestial Rampage key passive → Focus on Tempest Roar unique → Unsung Ascetic's Wraps → Maximize shapeshifting and storm synergies for ultimate endgame power.",
+                    info: {
+                        synergies: "Storm Strike builds Spirit → Lightning Storm channels for massive area damage → Claw provides Werewolf form → Tempest Roar makes Lightning Storm a Werewolf skill → Bestial Rampage amplifies both forms. Complex but devastatingly powerful.",
+                        gear: {
+                            weapon: "Staff • +Damage to Lightning Storm • Storm Skills • Shapeshifting Skills • Critical Hit Damage • Spirit Cost Reduction",
+                            armor: "Tempest Roar (Required) • Unsung Ascetic's Wraps • Maximum Life • +Ranks to Storm Skills • Attack Speed • Movement Speed",
+                            jewelry: "Critical Hit Chance • Lightning Damage • Shapeshifting Damage • Spirit Generation • Attack Speed • Maximum Spirit"
+                        },
+                        tips: "Requires Tempest Roar unique helmet to function • Channel Lightning Storm for main damage • Use Claw to maintain Werewolf form • Storm Strike for Spirit and chaining • Most complex but highest potential build • Perfect for experienced players who want maximum power"
                     }
                 }
-                // Adding more builds would follow the same pattern
             },
             necromancer: {
                 bloodsurge: {
@@ -822,34 +1168,232 @@
                         { level: 34, skill: "Death's Approach", points: "2/3" },
                         { level: 35, skill: "Death's Approach", points: "3/3" }
                     ],
-                    endgame: "Complete remaining blood passives → Corpse Tendrils for utility → Focus on legendary aspects that enhance blood skills and corpse generation.",
+                    endgame: "Complete remaining blood passives → Corpse Tendrils for utility → Focus on Cruor's Embrace unique and legendary aspects that enhance blood skills and overpower damage.",
                     info: {
-                        synergies: "Decompose creates corpses and generates Essence → Blood Surge consumes corpses for damage and healing. Corpse Explosion chains damage.",
+                        synergies: "Decompose creates corpses and generates Essence → Blood Surge consumes corpses for massive Overpower damage and healing. Corpse Explosion chains damage. Army of the Dead provides ultimate crowd control. Perfect sustain support for Druid's aggressive playstyle.",
                         gear: {
-                            weapon: "High weapon damage • +Damage to Blood Surge • Core Skill damage • Intelligence",
-                            armor: "Maximum Life • +Ranks to Blood Surge • +Ranks to Corpse Skills • Damage Reduction",
-                            jewelry: "Critical Hit Chance • Critical Hit Damage • Maximum Essence • Essence Generation"
+                            weapon: "Two-handed Scythe • +Damage to Blood Surge • Core Skill damage • Intelligence • Maximum Life • Overpower Damage",
+                            armor: "Cruor's Embrace (Recommended) • Maximum Life • +Ranks to Blood Surge • +Ranks to Corpse Skills • Damage Reduction • Fortify Generation",
+                            jewelry: "Critical Hit Chance • Maximum Life • Overpower Damage • Essence Generation • Blood Skill Damage • Critical Hit Damage"
                         },
-                        tips: "Maintain Bone Armor always • Use Decompose to create corpses • Blood Surge heals you • Blood Mist is your escape"
+                        tips: "Maintain Bone Armor always • Use Decompose to create corpses • Blood Surge heals you and deals Overpower damage • Blood Mist is your escape • Focus on Maximum Life for Overpower scaling • Great sustain support for Druid's melee builds"
+                    }
+                },
+                bonespear: {
+                    skills: [
+                        { level: 1, skill: "Bone Splinters", points: "1/5" },
+                        { level: 2, skill: "Bone Splinters", points: "2/5" },
+                        { level: 3, skill: "Bone Splinters", points: "3/5" },
+                        { level: 4, skill: "Bone Spear", points: "1/5" },
+                        { level: 5, skill: "Bone Spear", points: "2/5" },
+                        { level: 6, skill: "Bone Splinters", points: "4/5" },
+                        { level: 7, skill: "Bone Splinters", points: "5/5" },
+                        { level: 8, skill: "Enhanced Bone Splinters", points: "1/1" },
+                        { level: 9, skill: "Bone Spear", points: "3/5" },
+                        { level: 10, skill: "Bone Spear", points: "4/5" },
+                        { level: 11, skill: "Bone Spear", points: "5/5" },
+                        { level: 12, skill: "Enhanced Bone Spear", points: "1/1" },
+                        { level: 13, skill: "Supernatural Bone Spear", points: "1/1" },
+                        { level: 14, skill: "Bone Armor", points: "1/1" },
+                        { level: 15, skill: "Enhanced Bone Armor", points: "1/1" },
+                        { level: 16, skill: "Bone Prison", points: "1/5" },
+                        { level: 17, skill: "Bone Prison", points: "2/5" },
+                        { level: 18, skill: "Bone Prison", points: "3/5" },
+                        { level: 19, skill: "Bone Prison", points: "4/5" },
+                        { level: 20, skill: "Bone Prison", points: "5/5" },
+                        { level: 21, skill: "Enhanced Bone Prison", points: "1/1" },
+                        { level: 22, skill: "Corpse Tendrils", points: "1/1" },
+                        { level: 23, skill: "Enhanced Corpse Tendrils", points: "1/1" },
+                        { level: 24, skill: "Serration", points: "1/3" },
+                        { level: 25, skill: "Serration", points: "2/3" },
+                        { level: 26, skill: "Serration", points: "3/3" },
+                        { level: 27, skill: "Compound Fracture", points: "1/3" },
+                        { level: 28, skill: "Compound Fracture", points: "2/3" },
+                        { level: 29, skill: "Compound Fracture", points: "3/3" },
+                        { level: 30, skill: "Evulsion", points: "1/3" },
+                        { level: 31, skill: "Bone Storm", points: "1/1" },
+                        { level: 32, skill: "Enhanced Bone Storm", points: "1/1" },
+                        { level: 33, skill: "Supreme Bone Storm", points: "1/1" },
+                        { level: 34, skill: "Evulsion", points: "2/3" },
+                        { level: 35, skill: "Evulsion", points: "3/3" }
+                    ],
+                    endgame: "Complete Ossified Essence (3/3) → Bone Mastery (3/3) → Focus on piercing aspects and bone skill amplification for maximum ranged damage potential.",
+                    info: {
+                        synergies: "Bone Splinters generate Essence and pierce → Bone Spear pierces through all enemies → Bone Prison traps and makes Vulnerable → Corpse Tendrils group enemies for spear piercing → Bone Storm ultimate devastation.",
+                        gear: {
+                            weapon: "Wand + Focus • +Damage to Bone Spear • Bone Skill damage • Intelligence • Critical Hit Damage • Essence Cost Reduction",
+                            armor: "Maximum Life • +Ranks to Bone Spear • +Ranks to Bone Skills • Damage Reduction • Essence Generation • Lucky Hit Chance",
+                            jewelry: "Critical Hit Chance • Critical Hit Damage • Vulnerable Damage • Essence Generation • Bone Damage • Piercing Damage"
+                        },
+                        tips: "Stay at range and kite enemies • Use Bone Splinters to build Essence • Bone Prison to trap and make Vulnerable • Bone Spear pierces through lines of enemies • Corpse Tendrils groups enemies for maximum piercing • Perfect ranged complement to Druid's close combat"
+                    }
+                },
+                army: {
+                    skills: [
+                        { level: 1, skill: "Decompose", points: "1/5" },
+                        { level: 2, skill: "Decompose", points: "2/5" },
+                        { level: 3, skill: "Decompose", points: "3/5" },
+                        { level: 4, skill: "Raise Skeleton", points: "1/1" },
+                        { level: 5, skill: "Enhanced Raise Skeleton", points: "1/1" },
+                        { level: 6, skill: "Decompose", points: "4/5" },
+                        { level: 7, skill: "Decompose", points: "5/5" },
+                        { level: 8, skill: "Enhanced Decompose", points: "1/1" },
+                        { level: 9, skill: "Skeletal Mage", points: "1/1" },
+                        { level: 10, skill: "Enhanced Skeletal Mage", points: "1/1" },
+                        { level: 11, skill: "Bone Armor", points: "1/1" },
+                        { level: 12, skill: "Enhanced Bone Armor", points: "1/1" },
+                        { level: 13, skill: "Corpse Tendrils", points: "1/1" },
+                        { level: 14, skill: "Enhanced Corpse Tendrils", points: "1/1" },
+                        { level: 15, skill: "Bone Prison", points: "1/5" },
+                        { level: 16, skill: "Bone Prison", points: "2/5" },
+                        { level: 17, skill: "Bone Prison", points: "3/5" },
+                        { level: 18, skill: "Bone Prison", points: "4/5" },
+                        { level: 19, skill: "Bone Prison", points: "5/5" },
+                        { level: 20, skill: "Enhanced Bone Prison", points: "1/1" },
+                        { level: 21, skill: "Amplify Damage", points: "1/3" },
+                        { level: 22, skill: "Amplify Damage", points: "2/3" },
+                        { level: 23, skill: "Amplify Damage", points: "3/3" },
+                        { level: 24, skill: "Death's Embrace", points: "1/3" },
+                        { level: 25, skill: "Death's Embrace", points: "2/3" },
+                        { level: 26, skill: "Death's Embrace", points: "3/3" },
+                        { level: 27, skill: "Bone Mastery", points: "1/3" },
+                        { level: 28, skill: "Bone Mastery", points: "2/3" },
+                        { level: 29, skill: "Bone Mastery", points: "3/3" },
+                        { level: 30, skill: "Memento Mori", points: "1/3" },
+                        { level: 31, skill: "Army of the Dead", points: "1/1" },
+                        { level: 32, skill: "Enhanced Army of the Dead", points: "1/1" },
+                        { level: 33, skill: "Supreme Army of the Dead", points: "1/1" },
+                        { level: 34, skill: "Memento Mori", points: "2/3" },
+                        { level: 35, skill: "Memento Mori", points: "3/3" }
+                    ],
+                    endgame: "Complete Golem Mastery (3/3) → Kalan's Edict (3/3) → Focus on minion-enhancing aspects and +Minion damage gear for ultimate army supremacy.",
+                    info: {
+                        synergies: "Decompose creates corpses → Raise Skeleton and Skeletal Mage create permanent minions → Corpse Tendrils and Bone Prison provide crowd control → Army of the Dead summons massive temporary army. Perfect team support build.",
+                        gear: {
+                            weapon: "Two-handed Scythe • +Minion Damage • +Ranks to Minion Skills • Intelligence • Minion Attack Speed • Minion Life",
+                            armor: "Maximum Life • +Ranks to Minion Skills • Minion Damage • Damage Reduction • +Ranks to Army of the Dead • Essence Generation",
+                            jewelry: "Minion Damage • Critical Hit Chance • +Ranks to Army of the Dead • Essence Generation • Minion Attack Speed • Maximum Essence"
+                        },
+                        tips: "Use Decompose to create corpses for minions • Maintain skeleton army at all times • Corpse Tendrils groups enemies for minions • Bone Prison creates safe zones • Army of the Dead for major encounters • Perfect support for any Druid build • Minions tank while you and Druid deal damage"
+                    }
+                },
+                corpseexplosion: {
+                    skills: [
+                        { level: 1, skill: "Decompose", points: "1/5" },
+                        { level: 2, skill: "Decompose", points: "2/5" },
+                        { level: 3, skill: "Decompose", points: "3/5" },
+                        { level: 4, skill: "Corpse Explosion", points: "1/5" },
+                        { level: 5, skill: "Corpse Explosion", points: "2/5" },
+                        { level: 6, skill: "Decompose", points: "4/5" },
+                        { level: 7, skill: "Decompose", points: "5/5" },
+                        { level: 8, skill: "Enhanced Decompose", points: "1/1" },
+                        { level: 9, skill: "Corpse Explosion", points: "3/5" },
+                        { level: 10, skill: "Corpse Explosion", points: "4/5" },
+                        { level: 11, skill: "Corpse Explosion", points: "5/5" },
+                        { level: 12, skill: "Enhanced Corpse Explosion", points: "1/1" },
+                        { level: 13, skill: "Plagued Corpse Explosion", points: "1/1" },
+                        { level: 14, skill: "Bone Armor", points: "1/1" },
+                        { level: 15, skill: "Enhanced Bone Armor", points: "1/1" },
+                        { level: 16, skill: "Corpse Tendrils", points: "1/1" },
+                        { level: 17, skill: "Enhanced Corpse Tendrils", points: "1/1" },
+                        { level: 18, skill: "Decrepify", points: "1/5" },
+                        { level: 19, skill: "Decrepify", points: "2/5" },
+                        { level: 20, skill: "Decrepify", points: "3/5" },
+                        { level: 21, skill: "Enhanced Decrepify", points: "1/1" },
+                        { level: 22, skill: "Iron Maiden", points: "1/5" },
+                        { level: 23, skill: "Iron Maiden", points: "2/5" },
+                        { level: 24, skill: "Grim Harvest", points: "1/3" },
+                        { level: 25, skill: "Grim Harvest", points: "2/3" },
+                        { level: 26, skill: "Grim Harvest", points: "3/3" },
+                        { level: 27, skill: "Fueled by Death", points: "1/3" },
+                        { level: 28, skill: "Fueled by Death", points: "2/3" },
+                        { level: 29, skill: "Fueled by Death", points: "3/3" },
+                        { level: 30, skill: "Death's Approach", points: "1/3" },
+                        { level: 31, skill: "Bone Storm", points: "1/1" },
+                        { level: 32, skill: "Enhanced Bone Storm", points: "1/1" },
+                        { level: 33, skill: "Supreme Bone Storm", points: "1/1" },
+                        { level: 34, skill: "Death's Approach", points: "2/3" },
+                        { level: 35, skill: "Death's Approach", points: "3/3" }
+                    ],
+                    endgame: "Complete Corpse Mastery (3/3) → Cull the Weak (3/3) → Focus on chain reaction aspects and corpse generation for devastating area damage chains.",
+                    info: {
+                        synergies: "Decompose creates corpses → Corpse Explosion chains damage that creates more corpses → Corpse Tendrils groups enemies for maximum explosion coverage → Decrepify and Iron Maiden amplify damage → Bone Storm ultimate area devastation.",
+                        gear: {
+                            weapon: "Two-handed Scythe • +Damage to Corpse Explosion • Corpse Skills • Intelligence • Area Damage • Lucky Hit Chance",
+                            armor: "Maximum Life • +Ranks to Corpse Skills • Area Damage • Damage Reduction • +Ranks to Corpse Explosion • Corpse Generation",
+                            jewelry: "Critical Hit Chance • Area Damage • Lucky Hit Chance • Essence Generation • Vulnerable Damage • Critical Hit Damage"
+                        },
+                        tips: "Use Decompose to create initial corpses → Corpse Tendrils to group enemies → Corpse Explosion for massive chain reactions → Decrepify to amplify damage and reduce enemy damage • Iron Maiden for thorns damage • Perfect for clearing large groups while Druid handles single targets"
+                    }
+                },
+                boneprison: {
+                    skills: [
+                        { level: 1, skill: "Bone Splinters", points: "1/5" },
+                        { level: 2, skill: "Bone Splinters", points: "2/5" },
+                        { level: 3, skill: "Bone Splinters", points: "3/5" },
+                        { level: 4, skill: "Bone Prison", points: "1/5" },
+                        { level: 5, skill: "Bone Prison", points: "2/5" },
+                        { level: 6, skill: "Bone Splinters", points: "4/5" },
+                        { level: 7, skill: "Bone Splinters", points: "5/5" },
+                        { level: 8, skill: "Enhanced Bone Splinters", points: "1/1" },
+                        { level: 9, skill: "Bone Prison", points: "3/5" },
+                        { level: 10, skill: "Bone Prison", points: "4/5" },
+                        { level: 11, skill: "Bone Prison", points: "5/5" },
+                        { level: 12, skill: "Enhanced Bone Prison", points: "1/1" },
+                        { level: 13, skill: "Supernatural Bone Prison", points: "1/1" },
+                        { level: 14, skill: "Bone Armor", points: "1/1" },
+                        { level: 15, skill: "Enhanced Bone Armor", points: "1/1" },
+                        { level: 16, skill: "Corpse Tendrils", points: "1/1" },
+                        { level: 17, skill: "Enhanced Corpse Tendrils", points: "1/1" },
+                        { level: 18, skill: "Decrepify", points: "1/5" },
+                        { level: 19, skill: "Decrepify", points: "2/5" },
+                        { level: 20, skill: "Decrepify", points: "3/5" },
+                        { level: 21, skill: "Enhanced Decrepify", points: "1/1" },
+                        { level: 22, skill: "Iron Maiden", points: "1/5" },
+                        { level: 23, skill: "Iron Maiden", points: "2/5" },
+                        { level: 24, skill: "Serration", points: "1/3" },
+                        { level: 25, skill: "Serration", points: "2/3" },
+                        { level: 26, skill: "Serration", points: "3/3" },
+                        { level: 27, skill: "Compound Fracture", points: "1/3" },
+                        { level: 28, skill: "Compound Fracture", points: "2/3" },
+                        { level: 29, skill: "Compound Fracture", points: "3/3" },
+                        { level: 30, skill: "Bone Mastery", points: "1/3" },
+                        { level: 31, skill: "Bone Storm", points: "1/1" },
+                        { level: 32, skill: "Enhanced Bone Storm", points: "1/1" },
+                        { level: 33, skill: "Supreme Bone Storm", points: "1/1" },
+                        { level: 34, skill: "Bone Mastery", points: "2/3" },
+                        { level: 35, skill: "Bone Mastery", points: "3/3" }
+                    ],
+                    endgame: "Complete Necrotic Carapace (3/3) → Amplify Damage (3/3) → Focus on crowd control duration and bone skill enhancement for ultimate battlefield control mastery.",
+                    info: {
+                        synergies: "Bone Splinters generate Essence → Bone Prison traps and makes Vulnerable → Corpse Tendrils groups enemies into Prison → Decrepify slows and weakens → Iron Maiden reflects damage → Ultimate crowd control synergy with complex timing requirements.",
+                        gear: {
+                            weapon: "Wand + Focus • +Damage to Bone Prison • Bone Skills • Intelligence • Crowd Control Duration • Vulnerable Damage",
+                            armor: "Maximum Life • +Ranks to Bone Skills • Crowd Control Duration • Damage Reduction • +Ranks to Bone Prison • Essence Generation",
+                            jewelry: "Critical Hit Chance • Crowd Control Duration • Vulnerable Damage • Essence Generation • Lucky Hit Chance • Critical Hit Damage"
+                        },
+                        tips: "Master of battlefield control and timing • Use Bone Prison to trap priority targets • Corpse Tendrils to group enemies into Prison range • Decrepify to slow and weaken • Iron Maiden for damage reflection • Requires excellent positioning and timing • Perfect support for coordinated team play with Druid"
                     }
                 }
-                // More builds would follow the same pattern
             }
         };
 
-        let currentClass = 'barbarian';
-        let selectedBuild = 'upheaval';
+        let currentClass = 'druid';
+        let selectedBuild = 'landslide';
 
         // Build selection handlers
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize trivia rotation
+            initTrivia();
+            
             // Set up build selection
             setupBuildSelection();
             
             // Set up input handlers
-            document.getElementById('barbLevel').addEventListener('keypress', function(e) {
+            document.getElementById('druidLevel').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    showBarbSkills();
+                    showDruidSkills();
                 }
             });
             document.getElementById('necroLevel').addEventListener('keypress', function(e) {
@@ -858,14 +1402,24 @@
                     showNecroSkills();
                 }
             });
+
+            // Set up input change handlers for navigation arrows
+            document.getElementById('druidLevel').addEventListener('input', function() {
+                const level = parseInt(this.value) || 1;
+                updateNavigationArrows('druid', level);
+            });
+            document.getElementById('necroLevel').addEventListener('input', function() {
+                const level = parseInt(this.value) || 1;
+                updateNavigationArrows('necro', level);
+            });
         });
 
         function setupBuildSelection() {
-            // Barbarian build selection
-            const barbBuilds = document.querySelectorAll('#barbarian .build-option');
-            barbBuilds.forEach(build => {
+            // Druid build selection
+            const druidBuilds = document.querySelectorAll('#druid .build-option');
+            druidBuilds.forEach(build => {
                 build.addEventListener('click', function() {
-                    barbBuilds.forEach(b => b.classList.remove('selected'));
+                    druidBuilds.forEach(b => b.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedBuild = this.dataset.build;
                 });
@@ -882,19 +1436,22 @@
             });
         }
 
-        function showBarbSkills() {
-            const level = parseInt(document.getElementById('barbLevel').value);
+        function showDruidSkills() {
+            const level = parseInt(document.getElementById('druidLevel').value);
             if (!level || level < 1) {
                 alert('Please enter a valid level (1 or higher)');
                 return;
             }
 
-            // Get selected build data
-            const buildSkills = buildData.barbarian[selectedBuild]?.skills || buildData.barbarian.upheaval.skills;
-            const buildInfo = buildData.barbarian[selectedBuild]?.info || buildData.barbarian.upheaval.info;
-            const endgameNotes = buildData.barbarian[selectedBuild]?.endgame || buildData.barbarian.upheaval.endgame;
+            // Update navigation arrows
+            updateNavigationArrows('druid', level);
 
-            displaySkills('barb', level, buildSkills, buildInfo, endgameNotes);
+            // Get selected build data
+            const buildSkills = buildData.druid[selectedBuild]?.skills || buildData.druid.landslide.skills;
+            const buildInfo = buildData.druid[selectedBuild]?.info || buildData.druid.landslide.info;
+            const endgameNotes = buildData.druid[selectedBuild]?.endgame || buildData.druid.landslide.endgame;
+
+            displaySkills('druid', level, buildSkills, buildInfo, endgameNotes);
         }
 
         function showNecroSkills() {
@@ -903,6 +1460,9 @@
                 alert('Please enter a valid level (1 or higher)');
                 return;
             }
+
+            // Update navigation arrows
+            updateNavigationArrows('necro', level);
 
             // Get selected build data
             const buildSkills = buildData.necromancer[selectedBuild]?.skills || buildData.necromancer.bloodsurge.skills;
@@ -1004,11 +1564,11 @@
             currentClass = className;
             
             // Reset selected build for new class
-            if (className === 'barbarian') {
-                selectedBuild = 'upheaval';
-                // Reset barbarian build selection
-                document.querySelectorAll('#barbarian .build-option').forEach(b => b.classList.remove('selected'));
-                document.querySelector('#barbarian .build-option[data-build="upheaval"]').classList.add('selected');
+            if (className === 'druid') {
+                selectedBuild = 'landslide';
+                // Reset druid build selection
+                document.querySelectorAll('#druid .build-option').forEach(b => b.classList.remove('selected'));
+                document.querySelector('#druid .build-option[data-build="landslide"]').classList.add('selected');
             } else {
                 selectedBuild = 'bloodsurge';
                 // Reset necromancer build selection
